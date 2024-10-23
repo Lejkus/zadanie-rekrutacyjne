@@ -21,6 +21,14 @@ function UploadImage(event) {
             uploadedImage.src = e.target.result;
         };
         reader.readAsDataURL(file); 
+        if(grayscaleCanvas){
+            const ctx = grayscaleCanvas.getContext('2d');
+            ctx.clearRect(0, 0,grayscaleCanvas.width, grayscaleCanvas.height);
+            ctx.canvas.width  = 302;
+            ctx.canvas.height = 152;
+
+        }
+        
     }
 }
 
@@ -32,6 +40,12 @@ function UploadImage(event) {
 
 
 convertGrayscale_Btn.addEventListener('click', ()=>{
+
+    if(!uploadedImage.src){
+        alert('nie dobrze koleszko, dodaj zdjecie')
+        return
+    }
+
     const ctx = grayscaleCanvas.getContext('2d');
     grayscaleCanvas.width = uploadedImage.width;
     grayscaleCanvas.height = uploadedImage.height;
@@ -57,7 +71,7 @@ convertGrayscale_Btn.addEventListener('click', ()=>{
         data[i + 1] = gray;
         data[i + 2] = gray;
       }
-    
+      
     ctx.putImageData(imageData,0,0)
 
 });
